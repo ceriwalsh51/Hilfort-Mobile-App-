@@ -1,5 +1,6 @@
 package org.wit.hillfort.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,12 +10,15 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import org.wit.hillfort.R
+import org.wit.hillfort.helpers.readImage
+import org.wit.hillfort.helpers.readImageFromPath
+import org.wit.hillfort.helpers.showImagePicker
 import org.wit.hillfort.main.MainApp
 import org.wit.hillfort.models.HillfortModel
 
 class HillfortActivity : AppCompatActivity(),AnkoLogger {
 
-
+    val IMAGE_REQUEST = 1
     var hillfort = HillfortModel()
     lateinit var app : MainApp
 
@@ -34,26 +38,29 @@ class HillfortActivity : AppCompatActivity(),AnkoLogger {
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
             btnAdd.setText(R.string.save_hillfort)
+            chooseImage.setText(R.string.change_hillfort_image)
+            hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
         }
 
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
 
-            if(hillfort.title.isNotEmpty()) {
-                if (hillfort.title.isEmpty()) {
-                    toast(R.string.enter_hillfort_title)
+            if (hillfort.title.isEmpty()) {
+                toast(R.string.enter_hillfort_title)
+            } else {
+                if (edit) {
+                    app.hillforts.update(hillfort.copy())
                 } else {
-                    if (edit) {
-                        app.hillforts.update(hillfort.copy())
-                    } else {
-                        app.hillforts.create(hillfort.copy())
-                    }
+                    app.hillforts.create(hillfort.copy())
                 }
-                info("add Button Pressed: $hillfortTitle")
-                setResult(AppCompatActivity.RESULT_OK)
-                finish()
             }
+            info("add Button Pressed: $hillfortTitle")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
+        }
+        chooseImage.setOnClickListener {
+            showImagePicker(this, IMAGE_REQUEST)
         }
     }
 
@@ -69,5 +76,17 @@ class HillfortActivity : AppCompatActivity(),AnkoLogger {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            IMAGE_REQUEST -> {
+                if(data != null) {
+                    hillfort.image = data.getData().toString()
+                    hillfortImage.setImageBitmap(readImage(this, resultCode, data))
+                }
+            }
+        }
     }
 }
