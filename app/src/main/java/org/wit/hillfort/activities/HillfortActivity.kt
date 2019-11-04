@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -23,7 +24,6 @@ class HillfortActivity : AppCompatActivity(),AnkoLogger {
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
     var hillfort = HillfortModel()
-   // var location = Location(52.245696, -7.139102, 15f)
     lateinit var app : MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +39,7 @@ class HillfortActivity : AppCompatActivity(),AnkoLogger {
         if(intent.hasExtra("hillfort_edit")) {
             edit = true
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
+            hillfort.visited = checkbox.isChecked
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
             btnAdd.setText(R.string.save_hillfort)
