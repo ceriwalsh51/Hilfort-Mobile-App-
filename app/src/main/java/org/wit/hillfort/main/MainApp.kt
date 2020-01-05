@@ -14,7 +14,8 @@ class MainApp : Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
-        hillforts = HillfortJSONStore(applicationContext)
+        //hillforts = HillfortJSONStore(applicationContext)
+        hillforts = HillfortMemStore()
         info("Hillfort started")
     }
 }
