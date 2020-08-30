@@ -1,7 +1,9 @@
-package org.wit.hillfort.models
+package org.wit.hillfort.models.mem
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.HillfortStore
 
 var lastId = 0L
 
@@ -23,15 +25,12 @@ class HillfortMemStore : HillfortStore, AnkoLogger{
     }
 
     override fun update(hillfort: HillfortModel) {
-        var foundHillfort: HillfortModel? = hillforts.find {p -> p.id == hillfort.id}
+        var foundHillfort: HillfortModel? = hillforts.find { p -> p.id == hillfort.id}
         if(foundHillfort != null) {
             foundHillfort.title = hillfort.title
             foundHillfort.description = hillfort.description
             foundHillfort.image = hillfort.image
-            foundHillfort.lat = hillfort.lat
-            foundHillfort.lng = hillfort.lng
-            foundHillfort.zoom = hillfort.zoom
-            foundHillfort.visited = hillfort.visited
+            foundHillfort.location = hillfort.location
             logAll()
         }
     }
@@ -47,5 +46,9 @@ class HillfortMemStore : HillfortStore, AnkoLogger{
 
     fun logAll() {
         hillforts.forEach { info("${it}")}
+    }
+
+    override fun clear() {
+        hillforts.clear()
     }
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "296596276144",
+    "firebase_url": "https://hillfort-demo-eae6e.firebaseio.com",
+    "project_id": "hillfort-demo-eae6e",
+    "storage_bucket": "hillfort-demo-eae6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296596276144:android:0b1053dd0949623ab78c75",
+        "android_client_info": {
+          "package_name": "org.wit.hillfort"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296596276144-mvmib8vin6a93ig7e1n1vnhva367muik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.hillfort",
+            "certificate_hash": "1edff59adf4f72d1792e892109315b0e15a8b38f"
+          }
+        },
+        {
+          "client_id": "296596276144-mup55cq1tv0bql91n38s1iuel0pujqfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjkqr2P6m_W-WcmVl71QefR2PSmT7df-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296596276144-mup55cq1tv0bql91n38s1iuel0pujqfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

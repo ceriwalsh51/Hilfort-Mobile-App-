@@ -1,6 +1,5 @@
 package org.wit.hillfort.views.editlocation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,8 +9,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import org.wit.hillfort.R
 import org.wit.hillfort.views.BaseView
-import org.wit.hillfort.views.editlocation.EditLocationPresenter
-import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.activity_edit_location.*
 
 class EditLocationView :  BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener{
 
@@ -19,7 +17,7 @@ class EditLocationView :  BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_edit_location)
         super.init(toolbar, true)
 
         presenter = initPresenter(EditLocationPresenter(this)) as EditLocationPresenter
@@ -46,12 +44,12 @@ class EditLocationView :  BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onMarkerDragStart(marker: Marker) {
+    }
+
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doUpdateMarker(marker)
         return false
-    }
-
-    override fun onMarkerDragStart(marker: Marker) {
     }
 
     override fun onMarkerDrag(marker: Marker) {
@@ -87,4 +85,5 @@ class EditLocationView :  BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
     }
+
 }
