@@ -54,13 +54,15 @@ class HillfortFireStore (val context: Context) : HillfortStore, AnkoLogger {
     fun fetchHillforts(hillfortsReady: () -> Unit) {
         val valueEventListener = object : ValueEventListener {
             override fun onCancelled(dataSnapshot: DatabaseError) {
-
             }
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot!!.children.mapNotNullTo(hillforts) { it.getValue<HillfortModel>(HillfortModel::class.java)}
+                dataSnapshot!!.children.mapNotNullTo(hillforts) { it.getValue<HillfortModel>(HillfortModel::class.java) }
                 hillfortsReady()
             }
         }
-        userId = Firebas
+        userId = FirebaseAuth.getInstance().currentUser!!.uid
+        db = FirebaseDatabase.getInstance().reference
+        hillforts.clear()
+        db.child("users").child(userId).child("hillforts").addListenerForSingleValueEvent(valueEventListener)
     }
 }
